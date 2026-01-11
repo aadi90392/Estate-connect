@@ -25,17 +25,17 @@ const propertySchema = mongoose.Schema(
     type: {
       type: String,
       required: true,
-      enum: ["Rent", "Sale"], // Sirf yahi 2 options allowed honge
+      enum: ["Rent", "Sale"], 
       default: "Rent",
     },
-    // Abhi ke liye Images ko String rakhte hain (URL)
+    
     image: {
       type: String, 
-      default: "https://via.placeholder.com/150", // Agar image nahi di to ye dummy photo dikhegi
+      default: "https://via.placeholder.com/150", 
     },
   },
   {
-    timestamps: true, // CreatedAt aur UpdatedAt apne aap aa jayega
+    timestamps: true, 
   }
 );
 

@@ -3,7 +3,6 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 
 
-//Generate Token
 
 const generatetoken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -14,14 +13,14 @@ const generatetoken = (id) => {
 
 const registerUser = async (req, res) => {
     try {
-        //Frontend data lana
+      
         const { name, email, password, role } = req.body;
 
-        // data validate 
+       
         if (!name || !email || !password) {
             return res.status(400).json({ message: "Please fill in all fields" });
         }
-        //duplicate check krunga abhi...
+      
         const userExists = await User.findOne({ email });
         if (userExists) {
             return res.status(400).json({ message: "User Already Exists" });
@@ -33,15 +32,14 @@ const registerUser = async (req, res) => {
         const hashedpassword = await bcrypt.hash(password, salt);
 
 
-        //password save krunga av...
-
+      
         const user = await User.create({
             name,
             email,
             password: hashedpassword,
             role,
         });
-        // deatils bej raha hu frontend pe wapas user ki 
+      
 
         if (user) {
             res.status(201).json({
@@ -89,7 +87,7 @@ const loginUser = async (req, res) => {
     }
 };
 const getMe = async (req, res) => {
-    // Middleware ne pehle hi user dhoond ke req.user me rakh diya hai
+   
     res.status(200).json(req.user);
 };
 module.exports = {

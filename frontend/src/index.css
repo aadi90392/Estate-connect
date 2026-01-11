@@ -1,0 +1,10 @@
+/* 👇 Ye line sabse upar honi chahiye 👇 */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* 👇 Ye bhi add karo taaki puri website par font apply ho jaye 👇 */
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: #f8fafc; /* Thoda sa greyish white background (Eye soothing) */
+}
