@@ -13,7 +13,7 @@ const Home = () => {
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/properties');
+        const res = await axios.get('/https://estate-connect-u36j.onrender.com/api/properties');
         setOfferListings(res.data.slice(0, 4)); // Top 4 properties
       } catch (error) {
         console.log(error);

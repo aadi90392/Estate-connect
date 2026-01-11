@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true); // ✅ Fix 1: Loading state add kiya
 
-    const API_URL = "http://localhost:5000/api/users";
+    const API_URL = "https://estate-connect-u36j.onrender.com/api/users";
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user"); // Spelling correct kari (storedUser)

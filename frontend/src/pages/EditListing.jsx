@@ -23,7 +23,7 @@ const EditListing = () => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/properties/${listingId}`);
+        const res = await axios.get(`https://estate-connect-u36j.onrender.com/api/properties/${listingId}`);
         // Data aate hi Form me set kar do
         setFormData(res.data);
       } catch (error) {
@@ -48,7 +48,7 @@ const EditListing = () => {
         };
 
         // PUT REQUEST (Update ke liye)
-        await axios.put(`http://localhost:5000/api/properties/${listingId}`, formData, config);
+        await axios.put(`https://estate-connect-u36j.onrender.com/api/properties/${listingId}`, formData, config);
 
         toast.success('Property Updated Successfully! ✏️');
         navigate('/dashboard'); // Wapas dashboard bhejo

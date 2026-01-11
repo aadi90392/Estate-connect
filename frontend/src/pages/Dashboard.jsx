@@ -13,7 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/properties');
+        const res = await axios.get('https://estate-connect-u36j.onrender.com/api/properties');
         
         let filteredListings;
 
@@ -43,7 +43,7 @@ const Dashboard = () => {
             headers: { Authorization: `Bearer ${user.token}` }
         };
 
-        await axios.delete(`http://localhost:5000/api/properties/${id}`, config);
+        await axios.delete(`https://estate-connect-u36j.onrender.com/api/properties/${id}`, config);
         
         setUserListings((prev) => prev.filter((item) => item._id !== id));
         toast.success("Property Deleted! 🗑️");

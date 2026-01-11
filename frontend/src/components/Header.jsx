@@ -29,7 +29,7 @@ const Header = () => {
     // Debouncing: User ke rukne ka wait karo (300ms) fir API call karo
     const delayDebounceFn = setTimeout(async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/properties?search=${searchTerm}`);
+            const res = await axios.get(`https://estate-connect-u36j.onrender.com/api/properties?search=${searchTerm}`);
             setSearchResults(res.data.slice(0, 5)); // Sirf top 5 results dikhao
             setShowResults(true);
         } catch (error) {

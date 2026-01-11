@@ -37,7 +37,7 @@ const CreateListing = () => {
             },
         };
 
-        const response = await axios.post('http://localhost:5000/api/properties', formData, config);
+        const response = await axios.post('https://estate-connect-u36j.onrender.com/api/properties', formData, config);
 
         if(response.data){
             toast.success('Property Created Successfully! 🏘️');

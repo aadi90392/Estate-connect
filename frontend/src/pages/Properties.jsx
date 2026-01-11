@@ -14,7 +14,7 @@ const Properties = () => {
     const fetchListings = async () => {
       try {
         setLoading(true);
-        const url = `http://localhost:5000/api/properties${location.search}`;
+        const url = `https://estate-connect-u36j.onrender.com/api/properties${location.search}`;
         const res = await axios.get(url);
         setListings(res.data);
         
