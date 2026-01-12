@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance'; // ✅ Change 1: Smart Axios Import
 import ListingItem from '../components/ListingItem';
 import { useLocation, Link } from 'react-router-dom';
 import { FaSearchMinus } from 'react-icons/fa';
@@ -14,8 +14,11 @@ const Properties = () => {
     const fetchListings = async () => {
       try {
         setLoading(true);
-        const url = `https://estate-connect-u36j.onrender.com/api/properties${location.search}`;
-        const res = await axios.get(url);
+        
+        // ✅ Change 2: Pura URL hataya, bas endpoint rakha
+        // axiosInstance khud detect karega ki Localhost hai ya Render
+        const res = await axios.get(`/properties${location.search}`);
+        
         setListings(res.data);
         
         // Fake delay for smoothness
@@ -96,4 +99,4 @@ const Properties = () => {
   );
 };
 
-export default Properties;     
+export default Properties;

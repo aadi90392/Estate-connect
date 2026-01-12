@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance'; // ✅ Change 1: Smart Axios Import
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import AuthContext from '../context/AuthContext';
@@ -13,7 +13,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const res = await axios.get('https://estate-connect-u36j.onrender.com/api/properties');
+        // ✅ Change 2: URL short kar diya (Local/Render auto-detect)
+        const res = await axios.get('/properties');
         
         let filteredListings;
 
@@ -43,7 +44,8 @@ const Dashboard = () => {
             headers: { Authorization: `Bearer ${user.token}` }
         };
 
-        await axios.delete(`https://estate-connect-u36j.onrender.com/api/properties/${id}`, config);
+        // ✅ Change 3: Delete URL bhi short kar diya
+        await axios.delete(`/properties/${id}`, config);
         
         setUserListings((prev) => prev.filter((item) => item._id !== id));
         toast.success("Property Deleted! 🗑️");

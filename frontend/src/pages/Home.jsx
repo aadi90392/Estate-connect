@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../utils/axiosInstance'; // ✅ Change 1: Smart Axios Import
 import { FaSearch, FaFire, FaHome, FaUserShield, FaArrowRight } from 'react-icons/fa';
 import ListingItem from '../components/ListingItem';
 
@@ -13,7 +13,8 @@ const Home = () => {
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
-        const res = await axios.get('/https://estate-connect-u36j.onrender.com/api/properties');
+        // ✅ Change 2: URL short kar diya. Ab ye Local aur Render dono pe chalega.
+        const res = await axios.get('/properties'); 
         setOfferListings(res.data.slice(0, 4)); // Top 4 properties
       } catch (error) {
         console.log(error);
@@ -142,4 +143,4 @@ const Home = () => {
   );
 };
 
-export default Home;    
+export default Home;

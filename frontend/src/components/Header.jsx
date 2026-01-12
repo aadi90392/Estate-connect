@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaSearch, FaBuilding, FaChevronDown, FaSignOutAlt, FaTachometerAlt, FaPlusCircle, FaMapMarkerAlt } from 'react-icons/fa';
 import AuthContext from '../context/AuthContext';
-import axios from 'axios'; // 🟢 Axios import zaroori hai data lane ke liye
+import axios from '../utils/axiosInstance'; // ✅ Change 1: Smart Axios Import
 
 const Header = () => {
   // --- 1. SAARE HOOKS TOP PAR ---
@@ -29,7 +29,8 @@ const Header = () => {
     // Debouncing: User ke rukne ka wait karo (300ms) fir API call karo
     const delayDebounceFn = setTimeout(async () => {
         try {
-            const res = await axios.get(`https://estate-connect-u36j.onrender.com/api/properties?search=${searchTerm}`);
+            // ✅ Change 2: URL short kar diya
+            const res = await axios.get(`/properties?search=${searchTerm}`);
             setSearchResults(res.data.slice(0, 5)); // Sirf top 5 results dikhao
             setShowResults(true);
         } catch (error) {
@@ -179,7 +180,7 @@ const Header = () => {
                     />
                     <div className='flex flex-col items-start leading-none'>
                         <span className="text-slate-800 font-bold text-xs">{user.name.split(' ')[0]}</span>
-                        <span className="text-[10px] text-slate-500 uppercase">{user.role}</span>
+                        <span className="text-xs text-slate-500 uppercase">{user.role}</span>
                     </div>
                     <FaChevronDown className={`text-[10px] text-slate-400 ml-1 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>

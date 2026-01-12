@@ -1,13 +1,13 @@
 import { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance'; // ✅ Change 1: Smart Axios Import
 import { toast } from 'react-toastify';
-import { useNavigate, useParams } from 'react-router-dom'; // ID lene ke liye
+import { useNavigate, useParams } from 'react-router-dom'; 
 import AuthContext from '../context/AuthContext';
 
 const EditListing = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const params = useParams(); // URL se ID nikalne ke liye
+  const params = useParams(); 
   const listingId = params.id;
 
   const [formData, setFormData] = useState({
@@ -23,8 +23,8 @@ const EditListing = () => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const res = await axios.get(`https://estate-connect-u36j.onrender.com/api/properties/${listingId}`);
-        // Data aate hi Form me set kar do
+        // ✅ Change 2: URL short kar diya
+        const res = await axios.get(`/properties/${listingId}`);
         setFormData(res.data);
       } catch (error) {
         toast.error('Could not fetch listing details');
@@ -47,11 +47,11 @@ const EditListing = () => {
             headers: { Authorization: `Bearer ${user.token}` },
         };
 
-        // PUT REQUEST (Update ke liye)
-        await axios.put(`https://estate-connect-u36j.onrender.com/api/properties/${listingId}`, formData, config);
+        // ✅ Change 3: Update URL bhi short kar diya
+        await axios.put(`/properties/${listingId}`, formData, config);
 
         toast.success('Property Updated Successfully! ✏️');
-        navigate('/dashboard'); // Wapas dashboard bhejo
+        navigate('/dashboard'); 
 
     } catch (error) {
         toast.error(error.response?.data?.message || 'Update failed');

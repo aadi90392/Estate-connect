@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react';
-import axios from 'axios'; // API call ke liye
+import axios from '../utils/axiosInstance'; // ✅ Change 1: Smart Axios Import
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import AuthContext from '../context/AuthContext'; // Token lene ke liye
+import AuthContext from '../context/AuthContext'; 
 
 const CreateListing = () => {
   const { user } = useContext(AuthContext);
@@ -20,7 +20,6 @@ const CreateListing = () => {
   const { title, description, price, location, type, image } = formData;
 
   const onChange = (e) => {
-    // Agar input Text/Number/Select hai
     setFormData({
         ...formData,
         [e.target.id]: e.target.value
@@ -30,18 +29,18 @@ const CreateListing = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-        // Backend URL
         const config = {
             headers: {
-                Authorization: `Bearer ${user.token}`, // 🔑 Token dikhana zaroori hai
+                Authorization: `Bearer ${user.token}`, 
             },
         };
 
-        const response = await axios.post('https://estate-connect-u36j.onrender.com/api/properties', formData, config);
+        // ✅ Change 2: URL short kar diya
+        const response = await axios.post('/properties', formData, config);
 
         if(response.data){
             toast.success('Property Created Successfully! 🏘️');
-            navigate('/properties'); // Banane ke baad list wale page par bhej do
+            navigate('/properties'); 
         }
 
     } catch (error) {

@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../utils/axiosInstance'; // ✅ Change 1: Smart Axios Import
 import { FaMapMarkerAlt, FaBed, FaBath, FaParking, FaChair, FaShare, FaArrowLeft } from 'react-icons/fa';
 import AuthContext from '../context/AuthContext';
 import Contact from '../components/Contact';
@@ -17,7 +17,8 @@ const Property = () => {
     const fetchListing = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`https://estate-connect-u36j.onrender.com/api/properties/${params.id}`);
+        // ✅ Change 2: URL short kar diya
+        const res = await axios.get(`/properties/${params.id}`);
         setListing(res.data);
         setLoading(false);
       } catch (error) {

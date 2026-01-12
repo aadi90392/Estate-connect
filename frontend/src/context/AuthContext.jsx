@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import axios from "../utils/axiosInstance"; // ✅ Humara naya smart axios
 import { toast } from "react-toastify";
 
 // Global Store Context Create
@@ -7,22 +7,23 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true); // ✅ Fix 1: Loading state add kiya
+    const [loading, setLoading] = useState(true);
 
-    const API_URL = "https://estate-connect-u36j.onrender.com/api/users";
-
+    // App start hote hi check karo user login hai ya nahi
     useEffect(() => {
-        const storedUser = localStorage.getItem("user"); // Spelling correct kari (storedUser)
+        const storedUser = localStorage.getItem("user");
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
-        setLoading(false); // ✅ Fix 2: Checking khatam, ab app load hone do
+        setLoading(false);
     }, []);
 
     // --- REGISTER ---
     const register = async (userData) => {
         try {
-            const response = await axios.post(`${API_URL}/register`, userData);
+            // ✅ CHANGE: Pura URL hataya, bas endpoint rakha
+            // axiosInstance khud 'http://localhost:5000/api' laga lega
+            const response = await axios.post('/users/register', userData);
 
             if (response.data) {
                 localStorage.setItem("user", JSON.stringify(response.data));
@@ -40,10 +41,10 @@ export const AuthProvider = ({ children }) => {
     // --- LOGIN ---
     const login = async (userData) => {
         try {
-            const response = await axios.post(`${API_URL}/login`, userData);
+            // ✅ CHANGE: Yahan bhi short URL kar diya
+            const response = await axios.post('/users/login', userData);
 
-            // ✅ Fix 3: Yahan se semi-colon (;) hata diya jo pehle laga tha
-            if (response.data) { 
+            if (response.data) {
                 localStorage.setItem("user", JSON.stringify(response.data));
                 setUser(response.data);
                 toast.success(`Welcome back, ${response.data.name}! 👋`);
@@ -64,7 +65,6 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        // ✅ Fix 4: 'loading' ko bhi pass kiya taaki PrivateRoute use kar sake
         <AuthContext.Provider value={{ user, loading, register, login, logout }}>
             {children}
         </AuthContext.Provider>

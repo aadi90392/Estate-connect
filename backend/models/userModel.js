@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema(
       unique: true,
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-        "Please add a valid email", 
+        "Please add a valid email",
       ],
     },
     password: {
@@ -23,6 +23,13 @@ const userSchema = mongoose.Schema(
       type: String,
       enum: ["user", "landlord", "admin"],
       default: "user",
+    },
+    // 👇 OTP fields for Password Reset
+    resetPasswordOTP: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Date,
     },
   },
   {
